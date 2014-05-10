@@ -384,8 +384,9 @@ public class Jimmy extends ListenerAdapter {
                     if (i != 2)
                         b.append(" ");
                     b.append(line[i]);
-                    bot.sendMessage(line[1], b.toString());
+
                 }
+                bot.sendMessage(line[1], b.toString());
             }else{
                 event.respond("You can't do that, lel.");
             }
