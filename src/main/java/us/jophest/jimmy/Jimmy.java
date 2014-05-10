@@ -402,10 +402,19 @@ public class Jimmy extends ListenerAdapter {
 
             String sender = event.getUser().getNick();
             String target = line[1];
-            notiflist = notifs.get(target.toLowerCase());
-            notiflist.add(sender);
-            notifs.put(target.toLowerCase(), notiflist);
-            bot.sendMessage(usr, "Notification for " + target +" added");
+            if (!notifs.get(target.toLowerCase()).isEmpty()){
+                notiflist = notifs.get(target.toLowerCase());
+                notiflist.add(sender);
+                notifs.put(target.toLowerCase(), notiflist);
+                bot.sendMessage(usr, "Notification for " + target +" added");
+            } else {
+                notiflist.add(sender);
+                notifs.put(target.toLowerCase(), notiflist);
+                bot.sendMessage(usr, "Notification for " + target +" added");
+            }
+
+
+
 
         } else if (notifs.containsKey(usr.toLowerCase())) {
 
