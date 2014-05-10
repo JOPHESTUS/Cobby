@@ -28,6 +28,7 @@
             <groupId>com.esotericsoftware.yamlbeans</groupId>
             <artifactId>yamlbeans</artifactId>
             <version>1.06</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -44,62 +45,19 @@
     <build>
         <defaultGoal>clean package install</defaultGoal>
         <finalName>${project.name}</finalName>
-        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
-        <!-- Filter resources -->
-        <resources>
-            <resource>
-                <targetPath>.</targetPath>
-                <filtering>true</filtering>
-                <directory>${basedir}/src/main/resources/</directory>
-                <includes>
-                    <include>*.yml</include>
-                    <include>*.xml</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
-
-            <!-- Clean up-->
-                     <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <executions>
-                    <execution>
-                        <id>auto-clean</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                        <configuration>
-                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
-                            <filesets>
-                                <fileset>
-                                    <directory>${project.build.directory}</directory>
-                                    <includes>
-                                        <include>original-*.jar</include>
-                                        <include>*-shaded.jar</include>
-                                    </includes>
-                                    <followSymlinks>false</followSymlinks>
-                                </fileset>
-                            </filesets>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
             <!-- Compiler -->
             <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-                <inherited>true</inherited>
+                <artifactId>maven-compiler-plugin</artifactId>
                 <groupId>org.apache.maven.plugins</groupId>
-            <version>2.3.2</version>
-            <configuration>
-                <source>1.7</source>
-                <target>1.7</target>
-            </configuration>
-        </plugin>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
 
             <!-- Shade -->
             <plugin>
@@ -113,13 +71,10 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <minimizeJar>true</minimizeJar> <!-- make sure to only copy the stuff we need -->
-                            <createDependencyReducedPom>false</createDependencyReducedPom> <!-- we don't need this -->
-                            <artifactSet>
-                                <includes>
-                                    <artifact>org.jsoup:jsoup</artifact> <!-- include jsoup in our final jar -->
-                                </includes>
-                            </artifactSet>
+                            <minimizeJar>true</minimizeJar>
+                            <!-- make sure to only copy the stuff we need -->
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- we don't need this -->
                             <relocations>
                                 <relocation>
                                     <!-- relocate jsoup to an appropriate package -->
@@ -131,13 +86,6 @@
                     </execution>
                 </executions>
             </plugin>
-
-            <!-- Jar-Filler -->
-
         </plugins>
     </build>
-
-    <!-- JavaDoc -->
-
-
 </project>
