@@ -408,7 +408,7 @@ public class Jimmy extends ListenerAdapter {
 
         } else if (notifs.containsKey(usr.toLowerCase())) {
 
-            String msg = usr + " is now active in " + event.getChannel().toString();
+            String msg = usr + " is now active in " + event.getChannel().getName();
             String user = (String) notifs.get(usr.toLowerCase());
             bot.sendMessage(user, msg);
             notifs.remove(usr.toLowerCase());
