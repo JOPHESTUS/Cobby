@@ -89,6 +89,7 @@ public class Jimmy extends ListenerAdapter {
             in.close();
     }
 
+    //public void onDeath()
     public void onInvite(InviteEvent event) {
         channelName = event.getChannel();
         f = new File(channelName);
@@ -96,6 +97,7 @@ public class Jimmy extends ListenerAdapter {
             bot.sendMessage(event.getUser(), "You just invited Cobby to " + channelName + ". Unfortunately for some reason your channel has been blacklisted. Please contact JOPHESTUS if you believe this to be an error.");
         } else {
             bot.joinChannel(event.getChannel());
+
         }
     }
 
@@ -375,10 +377,17 @@ public class Jimmy extends ListenerAdapter {
                 event.getBot().sendMessage(event.getChannel(), line[1] + " got trolled!");
 
             }
-        } else if (line[0].equalsIgnoreCase("!joph")) {
-            if (line[1] != null) {
-                event.getBot().sendMessage(event.getChannel(),"joph, yer");
-
+        } else if (line[0].equalsIgnoreCase("!talk")) {
+            if (event.getUser().getNick().equals("JOPHESTUS")) {
+                StringBuilder b = new StringBuilder();
+                for (int i = 2; i < line.length; i++) {
+                    if (i != 2)
+                        b.append(" ");
+                    b.append(line[i]);
+                    bot.sendMessage(line[1], b.toString());
+                }
+            }else{
+                event.respond("You can't do that, lel.");
             }
         } else if (line[0].equalsIgnoreCase("!bl")) {
             if (line.length == 1) {
