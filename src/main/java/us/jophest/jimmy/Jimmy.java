@@ -49,6 +49,7 @@ public class Jimmy extends ListenerAdapter {
         bot.joinChannel("#frostalf");
         bot.joinChannel("#dra");
         bot.joinChannel("#hawkfalcon");
+        bot.sendMessage("#jophestus", "I'm alive!");
 
 
     }
