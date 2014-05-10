@@ -68,9 +68,8 @@ public class Jimmy extends ListenerAdapter {
 
     static String channelName = "";
     static File f = new File("");
-    HashMap notifs = new HashMap<String, String>();
-
-
+    HashMap<String, List<String>> notifs = new HashMap<>();
+    List<String> notiflist;
     public void onLoad(ConnectEvent event) {
 
     }
@@ -403,14 +402,20 @@ public class Jimmy extends ListenerAdapter {
 
             String sender = event.getUser().getNick();
             String target = line[1];
-            notifs.put(target.toLowerCase(), sender);
+            notiflist = notifs.get(target.toLowerCase());
+            notiflist.add(sender);
+            notifs.put(target.toLowerCase(), notiflist);
             bot.sendMessage(usr, "Notification for " + target +" added");
 
         } else if (notifs.containsKey(usr.toLowerCase())) {
 
             String msg = usr + " is now active in " + event.getChannel().getName();
-            String user = (String) notifs.get(usr.toLowerCase());
-            bot.sendMessage(user, msg);
+
+            notiflist = notifs.get(usr.toLowerCase());
+            for (String user : notiflist){
+                bot.sendMessage(user, msg);
+            }
+            notiflist.clear();
             notifs.remove(usr.toLowerCase());
 
 
