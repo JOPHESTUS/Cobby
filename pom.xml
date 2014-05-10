@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>us.jophest.jimmy</groupId>
+    <artifactId>Jimmy</artifactId>
+    <version>1.0.0</version>
+    <name>Jimmy</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- Dependencies -->
+    <dependencies>
+
+        <!-- PircBotX -->
+        <dependency>
+            <groupId>org.pircbotx</groupId>
+            <artifactId>pircbotx</artifactId>
+            <version>1.9</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- YAMLBeans -->
+        <dependency>
+            <groupId>com.esotericsoftware.yamlbeans</groupId>
+            <artifactId>yamlbeans</artifactId>
+            <version>1.06</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.3</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+    </dependencies>
+
+    <!-- Build -->
+    <build>
+        <defaultGoal>clean package install</defaultGoal>
+        <finalName>${project.name}</finalName>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+
+        <!-- Filter resources -->
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources/</directory>
+                <includes>
+                    <include>*.yml</include>
+                    <include>*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+
+            <!-- Clean up-->
+                     <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                        <configuration>
+                            <excludeDefaultDirectories>true</excludeDefaultDirectories>
+                            <filesets>
+                                <fileset>
+                                    <directory>${project.build.directory}</directory>
+                                    <includes>
+                                        <include>original-*.jar</include>
+                                        <include>*-shaded.jar</include>
+                                    </includes>
+                                    <followSymlinks>false</followSymlinks>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Compiler -->
+            <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+            <version>2.3.2</version>
+            <configuration>
+                <source>1.7</source>
+                <target>1.7</target>
+            </configuration>
+        </plugin>
+
+            <!-- Shade -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <minimizeJar>true</minimizeJar> <!-- make sure to only copy the stuff we need -->
+                            <createDependencyReducedPom>false</createDependencyReducedPom> <!-- we don't need this -->
+                            <artifactSet>
+                                <includes>
+                                    <artifact>org.jsoup:jsoup</artifact> <!-- include jsoup in our final jar -->
+                                </includes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <!-- relocate jsoup to an appropriate package -->
+                                    <pattern>org.jsoup</pattern>
+                                    <shadedPattern>us.jophest.libs</shadedPattern>
+                                </relocation>
+                            </relocations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Jar-Filler -->
+
+        </plugins>
+    </build>
+
+    <!-- JavaDoc -->
+
+
+</project>
