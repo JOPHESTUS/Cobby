@@ -9,6 +9,7 @@ import org.jsoup.select.Elements;
 import org.pircbotx.Colors;
 import org.jsoup.nodes.Document;
 import org.pircbotx.PircBotX;
+import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.ConnectEvent;
 import org.pircbotx.hooks.events.InviteEvent;
@@ -17,9 +18,7 @@ import org.pircbotx.hooks.events.MessageEvent;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 
 public class Jimmy extends ListenerAdapter {
@@ -69,6 +68,7 @@ public class Jimmy extends ListenerAdapter {
 
     static String channelName = "";
     static File f = new File("");
+    HashMap notifs = new HashMap<String, String>();
 
 
     public void onLoad(ConnectEvent event) {
@@ -387,7 +387,7 @@ public class Jimmy extends ListenerAdapter {
 
                 }
                 bot.sendMessage(line[1], b.toString());
-            }else{
+            } else {
                 event.respond("You can't do that, lel.");
             }
         } else if (line[0].equalsIgnoreCase("!bl")) {
@@ -399,7 +399,21 @@ public class Jimmy extends ListenerAdapter {
                         "blames " + line[1] + "!");
 
             }
-        } else if (line[0].equalsIgnoreCase("!r")) {
+        } else if (line[0].equalsIgnoreCase("!notif")) {
+
+            String sender = event.getUser().getNick();
+            String target = line[1];
+            notifs.put(target, sender);
+
+        }
+        else if (notifs.containsKey(event.getUser().getNick())) {
+            String msg = event.getUser().getNick() + "is now active.";
+            User user = (User) notifs.get(event.getUser());
+                bot.sendMessage(user, msg);
+            notifs.remove(event.getUser().getNick());
+
+
+        }else if (line[0].equalsIgnoreCase("!r")) {
 
             Random rand = new Random();
             String nick = event.getUser().getNick().toString();
