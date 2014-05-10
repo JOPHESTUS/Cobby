@@ -43,9 +43,19 @@
 
     <!-- Build -->
     <build>
+
         <defaultGoal>clean package install</defaultGoal>
         <finalName>${project.name}</finalName>
-
+        <resources>
+            <resource>
+                <targetPath>.</targetPath>
+                <filtering>true</filtering>
+                <directory>${basedir}/</directory>
+                <includes>
+                    <include>*.MF</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
 
             <!-- Compiler -->
