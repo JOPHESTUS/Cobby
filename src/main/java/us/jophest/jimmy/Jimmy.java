@@ -374,6 +374,11 @@ public class Jimmy extends ListenerAdapter {
                 event.getBot().sendMessage(event.getChannel(), line[1] + " got trolled!");
 
             }
+        } else if (line[0].equalsIgnoreCase("!joph")) {
+            if (line[1] != null) {
+                event.getBot().sendMessage(event.getChannel(),"joph, yer");
+
+            }
         } else if (line[0].equalsIgnoreCase("!bl")) {
             if (line.length == 1) {
                 event.getBot().sendAction(event.getChannel(),
