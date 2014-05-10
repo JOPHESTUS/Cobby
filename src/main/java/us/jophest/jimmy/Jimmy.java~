@@ -32,7 +32,7 @@ public class Jimmy extends ListenerAdapter {
         bot.setLogin("Cobby");
         bot.getListenerManager().addListener(new Jimmy());
 
-        bot.connect("jophest.us", 1337, getConfig("cobbypass"));
+        bot.connect("jophest.us", 1337, "Cobby");
 
 
         bot.joinChannel("#chemnstuff");
@@ -403,15 +403,15 @@ public class Jimmy extends ListenerAdapter {
 
             String sender = event.getUser().getNick();
             String target = line[1];
-            notifs.put(target.toLowerCase(), sender);
-            bot.sendMessage(usr, "Notification for " + target +" added");
+            notifs.put(target, sender);
+            bot.sendMessage(usr, "Notification added");
 
-        } else if (notifs.containsKey(usr.toLowerCase())) {
+        } else if (notifs.containsKey(usr)) {
 
             String msg = usr + " is now active.";
-            String user = (String) notifs.get(usr.toLowerCase());
+            String user = (String) notifs.get(usr);
             bot.sendMessage(user, msg);
-            notifs.remove(usr.toLowerCase());
+            notifs.remove(usr);
 
 
         } else if (line[0].equalsIgnoreCase("!r")) {
