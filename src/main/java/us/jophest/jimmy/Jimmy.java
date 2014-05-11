@@ -19,6 +19,7 @@ import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 
 public class Jimmy extends ListenerAdapter {
@@ -32,7 +33,7 @@ public class Jimmy extends ListenerAdapter {
         bot.setLogin("Cobby");
         bot.getListenerManager().addListener(new Jimmy());
 
-        bot.connect("jophest.us", 1337, getConfig("cobbypass"));
+        bot.connect("jophest.us", 1337, "Cobby");
 
 
         bot.joinChannel("#chemnstuff");
@@ -68,8 +69,9 @@ public class Jimmy extends ListenerAdapter {
 
     static String channelName = "";
     static File f = new File("");
-    HashMap<String, List<String>> notifs = new HashMap<>();
-    List<String> notiflist;
+    ConcurrentHashMap<String, List<String>> notifs = new ConcurrentHashMap<>();
+    List<String> notiflist = new ArrayList<String>();
+
     public void onLoad(ConnectEvent event) {
 
     }
@@ -402,18 +404,31 @@ public class Jimmy extends ListenerAdapter {
 
             String sender = event.getUser().getNick();
             String target = line[1];
-            if (!notifs.get(target.toLowerCase()).isEmpty()){
-                notiflist = notifs.get(target.toLowerCase());
-                notiflist.add(sender);
-                notifs.put(target.toLowerCase(), notiflist);
-                bot.sendMessage(usr, "Notification for " + target +" added");
+            System.out.println(target + " " + sender);
+
+            if (notifs.get(target.toLowerCase()) != null) {
+                try {
+                    notiflist = notifs.get(target.toLowerCase());
+                    notiflist.add(sender);
+                    notifs.put(target.toLowerCase(), notiflist);
+                    bot.sendMessage(sender, "Notification for " + target + " added");
+                } catch (Exception e) {
+                    event.respond("Woah! That didn't seem to work properly. Tell JOPH");
+                    e.printStackTrace();
+                }
+
             } else {
-                notiflist.add(sender);
-                notifs.put(target.toLowerCase(), notiflist);
-                bot.sendMessage(usr, "Notification for " + target +" added");
+                try {
+                    notiflist.add(sender);
+                    notifs.put(target.toLowerCase(), notiflist);
+                    bot.sendMessage(sender, "Notification for " + target + " added");
+                } catch (Exception e) {
+                    event.respond("Woah! That didn't seem to work properly. Tell JOPH");
+                    e.printStackTrace();
+                }
+
+
             }
-
-
 
 
         } else if (notifs.containsKey(usr.toLowerCase())) {
@@ -421,7 +436,7 @@ public class Jimmy extends ListenerAdapter {
             String msg = usr + " is now active in " + event.getChannel().getName();
 
             notiflist = notifs.get(usr.toLowerCase());
-            for (String user : notiflist){
+            for (String user : notiflist) {
                 bot.sendMessage(user, msg);
             }
             notiflist.clear();
