@@ -92,6 +92,10 @@ public class Jimmy extends ListenerAdapter {
             in.close();
     }
 
+    public static boolean isAdmin(User user) {
+        return bot.getChannel(getConfig("admin-channel")).getOps().contains(user);
+    }
+
     //public void onDeath()
     public void onInvite(InviteEvent event) {
         channelName = event.getChannel();
@@ -381,7 +385,7 @@ public class Jimmy extends ListenerAdapter {
 
             }
         } else if (line[0].equalsIgnoreCase("!talk")) {
-            if (event.getUser().getNick().equals("JOPHESTUS")) {
+            if (isAdmin(event.getUser())) {
                 StringBuilder b = new StringBuilder();
                 for (int i = 2; i < line.length; i++) {
                     if (i != 2)
