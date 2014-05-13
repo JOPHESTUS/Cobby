@@ -34,7 +34,7 @@ public class Jimmy extends ListenerAdapter {
         bot.setLogin("Cobby");
         bot.getListenerManager().addListener(new Jimmy());
 
-        bot.connect("jophest.us", 1337, "Cobby");
+        bot.connect("jophest.us", 1337, getConfig("cobbypass").toString());
 
 
         bot.joinChannel("#chemnstuff");
@@ -179,7 +179,7 @@ public class Jimmy extends ListenerAdapter {
 
 
         } else if (event.getMessage().equalsIgnoreCase("!cobby leave")) {
-            if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
+            if (isAdmin(event.getUser())) {
                 bot.partChannel(event.getChannel(), "JOPH told me to");
             } else {
                 event.respond("You can't do that");
@@ -193,7 +193,7 @@ public class Jimmy extends ListenerAdapter {
                 event.respond("You can't do that");
             }
         } else if (event.getMessage().startsWith("!cobby blacklist")) {
-            if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
+            if (isAdmin(event.getUser())) {
                 channelName = line[2];
                 f = new File(line[2]);
 
