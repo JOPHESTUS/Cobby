@@ -93,7 +93,9 @@ public class Jimmy extends ListenerAdapter {
     }
 
     public static boolean isAdmin(User user) {
-        return bot.getChannel(getConfig("admin-channel")).getOps().contains(user);
+
+        return bot.getChannel(getConfig("admin-channel").toString()).getOps().contains(user);
+
     }
 
     //public void onDeath()
