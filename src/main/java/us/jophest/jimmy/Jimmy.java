@@ -2,6 +2,7 @@ package us.jophest.jimmy;
 
 
 import com.esotericsoftware.yamlbeans.YamlReader;
+import com.esotericsoftware.yamlbeans.YamlWriter;
 import org.jsoup.Jsoup;
 
 import org.jsoup.nodes.Element;
@@ -54,7 +55,7 @@ public class Jimmy extends ListenerAdapter {
 
     }
 
-    public static String getConfig(String obj) {
+    public static Object getConfig(Object obj) {
         Map map = null;
         try {
             YamlReader reader = new YamlReader(new FileReader("config.yml"));
@@ -67,6 +68,7 @@ public class Jimmy extends ListenerAdapter {
         return map.get(obj).toString();
     }
 
+    public String notifname;
     static String channelName = "";
     static File f = new File("");
     ConcurrentHashMap<String, List<String>> notifs = new ConcurrentHashMap<>();
