@@ -98,6 +98,7 @@ public class Jimmy extends ListenerAdapter {
         while ((inputLine = in.readLine()) != null)
 
             in.close();
+
     }
 
     public static boolean isAdmin(User user) {
@@ -356,7 +357,7 @@ public class Jimmy extends ListenerAdapter {
             if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
                 try {
                     itpa(line[1], line[2]);
-
+                    event.respond("Awesomestate set");
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
