@@ -75,7 +75,7 @@ public class Jimmy extends ListenerAdapter {
         }
         return defaultValue;
     }
-
+   static String chan;
     public String notifname;
     static String channelName = "";
     static File f = new File("");
@@ -98,7 +98,7 @@ public class Jimmy extends ListenerAdapter {
         while ((inputLine = in.readLine()) != null)
 
             in.close();
-
+        bot.sendMessage(chan, "JOPHESTUS: Awesomestate set");
     }
 
     public static boolean isAdmin(User user) {
@@ -355,9 +355,10 @@ public class Jimmy extends ListenerAdapter {
             }
         } else if (line[0].equalsIgnoreCase("!setitpa")) {
             if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
+                chan = event.getChannel().getName();
                 try {
                     itpa(line[1], line[2]);
-                    event.respond("Awesomestate set");
+
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
