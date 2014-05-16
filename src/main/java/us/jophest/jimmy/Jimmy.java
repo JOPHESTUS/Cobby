@@ -34,7 +34,7 @@ public class Jimmy extends ListenerAdapter {
         bot.setLogin("Cobby");
         bot.getListenerManager().addListener(new Jimmy());
 
-        bot.connect("jophest.us", 1337, getConfig("cobbypass", ""));
+        bot.connect(getConfig("server", ""), getConfig("port", 1337), getConfig("cobbypass", ""));
 
 
         bot.joinChannel("#chemnstuff");
