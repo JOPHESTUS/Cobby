@@ -373,7 +373,7 @@ public class Jimmy extends ListenerAdapter {
         } else if (line[0].equalsIgnoreCase("!spam")) {
             if (line[1] != null) {
                 event.getBot().sendMessage(event.getChannel(),
-                        line[1] + " " + line[1] + " " + line[1] + " " + line[1] + " " + line[1] + " " + "!");
+                        line[1] + " " + line[1] + " " + line[1] + " " + line[1] + " " + line[1] + "!");
 
             }
         } else if (line[0].equalsIgnoreCase("!we")) {
