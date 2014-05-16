@@ -34,7 +34,7 @@ public class Jimmy extends ListenerAdapter {
         bot.setLogin("Cobby");
         bot.getListenerManager().addListener(new Jimmy());
 
-        bot.connect("jophest.us", 1337, getConfig("cobbypass").toString());
+        bot.connect("jophest.us", 1337, getConfig("cobbypass", ""));
 
 
         bot.joinChannel("#chemnstuff");
@@ -65,7 +65,15 @@ public class Jimmy extends ListenerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return map.get(obj).toString();
+        return map.get(obj);
+    }
+
+    public static <T> T getConfig(String obj, T defaultValue) {
+        Object value = getConfig(obj);
+        if (value != null && defaultValue.getClass().isInstance(value)) {
+            return (T) value;
+        }
+        return defaultValue;
     }
 
     public String notifname;
@@ -79,7 +87,7 @@ public class Jimmy extends ListenerAdapter {
     }
 
     public static void itpa(String name, String state) throws Exception {
-        URL yahoo = new URL(getConfig("itpalink") + "?name=" + name + "&state=" + state);
+        URL yahoo = new URL(getConfig("itpalink", "") + "?name=" + name + "&state=" + state);
         URLConnection yc = yahoo.openConnection();
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
@@ -93,9 +101,7 @@ public class Jimmy extends ListenerAdapter {
     }
 
     public static boolean isAdmin(User user) {
-
-        return bot.getChannel(getConfig("admin-channel").toString()).getOps().contains(user);
-
+        return bot.getChannel(getConfig("admin-channel", "#jophestus").toString()).getOps().contains(user);
     }
 
     //public void onDeath()
