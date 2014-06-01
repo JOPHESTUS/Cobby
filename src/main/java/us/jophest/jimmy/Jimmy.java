@@ -267,6 +267,7 @@ public class Jimmy extends ListenerAdapter {
 
                 InputStream is = con.getInputStream();
                 statsURL = con.getURL();
+                System.setProperty("http.agent", yourAgent);
                 URLConnection vgd = new URL("http://is.gd/create.php?format=simple&url=" + statsURL.toString()).openConnection();
                 InputStream vgdIs = con.getInputStream();
                 String shorturl = vgd.getURL().toString();
