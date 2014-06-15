@@ -120,7 +120,7 @@ public class Jimmy extends ListenerAdapter {
     public void onMessage(final MessageEvent event) {
 
         String usr = event.getUser().getNick();
-        final String[] line = event.getMessage().split(" ");
+        final String[] line = event.getMessage().replaceAll("\\s+", " ").split("\\s");
         if (line[0].equalsIgnoreCase("!pizza")) {
 
             if (line.length == 1) {
