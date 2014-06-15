@@ -199,7 +199,15 @@ public class Jimmy extends ListenerAdapter {
             } else {
                 event.respond("You can't do that");
             }
-        } else if (event.getMessage().startsWith("!cobby blacklist")) {
+        }    } else if (event.getMessage().startsWith("!cobby join nomsg")) {
+            if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
+                bot.joinChannel(line[2]);
+               
+
+            } else {
+                event.respond("You can't do that");
+            }
+        }else if (event.getMessage().startsWith("!cobby blacklist")) {
             if (isAdmin(event.getUser())) {
                 channelName = line[2];
                 f = new File(line[2]);
