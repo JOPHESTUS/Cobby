@@ -336,16 +336,7 @@ public class Jimmy extends ListenerAdapter {
                         "gives " + line[1] + " a treat!");
 
             }
-        } else if (line[0].equalsIgnoreCase("!hit")) {
-            if (line.length == 1) {
-                event.getBot().sendAction(event.getChannel(),
-                        "hits lol768");
-            } else if (line[1] != null) {
-                event.getBot().sendAction(event.getChannel(),
-                        "hits " + line[1]);
-
-            }
-        }  else if (line[0].equalsIgnoreCase("!h")) {
+       else if (line[0].equalsIgnoreCase("!h")) {
             if (line.length == 1) {
                 event.getBot().sendAction(event.getChannel(),
                         "hugs " + "everyone!");
