@@ -199,7 +199,7 @@ public class Jimmy extends ListenerAdapter {
             } else {
                 event.respond("You can't do that");
             }
-        }    } else if (event.getMessage().startsWith("!cobby join nomsg")) {
+        } else if (event.getMessage().startsWith("!cobby join nomsg")) {
             if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
                 bot.joinChannel(line[2]);
                
