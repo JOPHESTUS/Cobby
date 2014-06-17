@@ -362,6 +362,11 @@ public class Jimmy extends ListenerAdapter {
                         "waves at " + line[1] + "!");
 
             }
+        } else if (line[0].equalsIgnoreCase("!com")) {
+            
+                event.getBot().sendMessage(event.getChannel(),
+                        "\com");
+        
         } else if (line[0].equalsIgnoreCase("!setitpa")) {
             if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
                 chan = event.getChannel().getName();
