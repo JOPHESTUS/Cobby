@@ -366,6 +366,7 @@ public class Jimmy extends ListenerAdapter {
             
                 event.getBot().sendMessage(event.getChannel(),
                         "\\com");
+                        //yer
         
         } else if (line[0].equalsIgnoreCase("!setitpa")) {
             if (event.getUser().getNick().equalsIgnoreCase("JOPHESTUS")) {
