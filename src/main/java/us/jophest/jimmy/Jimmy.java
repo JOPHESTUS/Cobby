@@ -474,7 +474,7 @@ public class Jimmy extends ListenerAdapter {
             notifs.remove(usr.toLowerCase());
 
 
-        } else if (line[0].equalsIgnoreCase("!r")) {
+        } else if (line[0].equalsIgnoreCase("!roll")) {
 
             Random rand = new Random();
             String nick = event.getUser().getNick().toString();
